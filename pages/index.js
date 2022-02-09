@@ -9,13 +9,13 @@ const Schedule = () => {
   const alert = useContext(NotificationCtx)
   const [schedules, setSchedules] = useState([])
   useEffect(() => {
-    axios.get("http://localhost:4001/api/schedules").then((res) => {
+    axios.get(`${process.env.URL}/api/schedules`).then((res) => {
       setSchedules(res.data)
     })
   }, [])
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:4001/api/schedules/${id}`).then((res) => {
+    axios.delete(`${process.env.URL}/api/schedules${id}`).then((res) => {
       if (res.status === 204) {
         setSchedules(schedules.filter((schedule) => schedule.id !== id))
         alert.notify("success", "The activity is deleted")

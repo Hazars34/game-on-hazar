@@ -10,13 +10,13 @@ const Players = () => {
   const alert = useContext(NotificationCtx)
   const [players, setPlayers] = useState([])
   useEffect(() => {
-    axios.get("http://localhost:4001/api/players").then((res) => {
+    axios.get(`${process.env.URL}/api/players`).then((res) => {
       setPlayers(res.data)
     })
   }, [])
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:4001/api/players/${id}`).then((res) => {
+    axios.delete(`${process.env.URL}/api/players/${id}`).then((res) => {
       if (res.status === 204) {
         setPlayers(players.filter((player) => player.id !== id))
         alert.notify("success", "The player is deleted")

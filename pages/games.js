@@ -9,13 +9,13 @@ const Games = () => {
   const alert = useContext(NotificationCtx)
   const [games, setGames] = useState([])
   useEffect(() => {
-    axios.get("http://localhost:4001/api/games").then((res) => {
+    axios.get(`${process.env.URL}/api/games`).then((res) => {
       setGames(res.data)
     })
   }, [])
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:4001/api/games/${id}`).then((res) => {
+    axios.delete(`${process.env.URL}/api/games/${id}`).then((res) => {
       if (res.status === 204) {
         setGames(games.filter((game) => game.id !== id))
         alert.notify("success", "The game is deleted")

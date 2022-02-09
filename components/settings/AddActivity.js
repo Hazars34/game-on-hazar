@@ -18,10 +18,10 @@ const AddActivity = () => {
   const alert = useContext(NotificationCtx)
 
   useEffect(() => {
-    axios.get("http://localhost:4001/api/games").then((res) => {
+    axios.get(`${process.env.URL}/api/games`).then((res) => {
       setGameList(res.data)
     })
-    axios.get("http://localhost:4001/api/players").then((res) => {
+    axios.get(`${process.env.URL}/api/players`).then((res) => {
       setPlayerList(res.data)
     })
   }, [])
@@ -34,7 +34,7 @@ const AddActivity = () => {
       dateTime: dateTime,
     }
     axios
-      .post("http://localhost:4001/api/schedules", formData)
+      .post(`${process.env.URL}/api/schedules`, formData)
       .then((res) => {
         alert.notify("success", "The activity's been added successfully")
       })

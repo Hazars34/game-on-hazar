@@ -12,7 +12,7 @@ const AddGame = () => {
     event.preventDefault()
     const gameData = { title: title }
     axios
-      .post("http://localhost:4001/api/games", gameData)
+      .post(`${process.env.URL}/api/games`, gameData)
       .then((res) => {
         if (res.status === 201) {
           ctx.notify("success", "The game's been added successfully.")

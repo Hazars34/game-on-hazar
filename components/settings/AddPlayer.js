@@ -19,7 +19,7 @@ const AddPlayer = () => {
       username: enteredUsername,
     }
     axios
-      .post("http://localhost:4001/api/players", formData)
+      .post(`${process.env.URL}/api/players`, formData)
       .then((res) => {
         if (res.status === 201) {
           ctx.notify("success", "The player's been added successfully.")
