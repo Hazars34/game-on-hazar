@@ -1,56 +1,56 @@
-import { useEffect, useState, useContext } from 'react'
-import DeleteIcon from '@mui/icons-material/Delete'
-import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid'
-import axios from 'axios'
-import { NotificationCtx } from '../store/notification-ctx'
-import Box from '@mui/material/Box'
-import TableContainer from '../components/UI/TableContainer'
+import { useEffect, useState, useContext } from "react"
+import DeleteIcon from "@mui/icons-material/Delete"
+import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid"
+import axios from "axios"
+import { NotificationCtx } from "../store/notification-ctx"
+import Box from "@mui/material/Box"
+import TableContainer from "../components/UI/TableContainer"
 
 const Players = () => {
   const alert = useContext(NotificationCtx)
   const [players, setPlayers] = useState([])
   useEffect(() => {
-    axios.get('http://localhost:3000/api/players').then((res) => {
+    axios.get("http://localhost:4001/api/players").then((res) => {
       setPlayers(res.data)
     })
   }, [])
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:3000/api/players/${id}`).then((res) => {
+    axios.delete(`http://localhost:4001/api/players/${id}`).then((res) => {
       if (res.status === 204) {
         setPlayers(players.filter((player) => player.id !== id))
-        alert.notify('success', 'The player is deleted')
+        alert.notify("success", "The player is deleted")
       } else {
-        alert.notify('error', 'Error occured.')
+        alert.notify("error", "Error occured.")
       }
     })
   }
   const columns = [
     {
-      field: 'col1',
-      headerName: 'First Name',
+      field: "col1",
+      headerName: "First Name",
       flex: 1,
     },
     {
-      field: 'col2',
-      headerName: 'Last Name',
+      field: "col2",
+      headerName: "Last Name",
       flex: 1,
     },
     {
-      field: 'col3',
-      headerName: 'Username',
+      field: "col3",
+      headerName: "Username",
       flex: 1,
     },
     {
-      field: 'actions',
-      headerName: 'Actions',
-      type: 'actions',
+      field: "actions",
+      headerName: "Actions",
+      type: "actions",
       flex: 0.3,
       getActions: (params) => [
         <GridActionsCellItem
           onClick={() => handleDelete(params.id)}
           icon={<DeleteIcon />}
-          label='Delete'
+          label="Delete"
         />,
       ],
     },
@@ -66,7 +66,7 @@ const Players = () => {
   })
 
   return (
-    <TableContainer pageTitle='Players'>
+    <TableContainer pageTitle="Players">
       <DataGrid rows={rows} columns={columns} />
     </TableContainer>
   )

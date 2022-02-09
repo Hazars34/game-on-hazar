@@ -1,27 +1,27 @@
-import { useState, useEffect, useContext } from 'react'
-import TextField from '@mui/material/TextField'
-import Stack from '@mui/material/Stack'
-import DateTimePicker from '@mui/lab/DateTimePicker'
-import MenuItem from '@mui/material/MenuItem'
-import FormCard from '../UI/FormCard'
-import axios from 'axios'
-import { NotificationCtx } from '../../store/notification-ctx'
+import { useState, useEffect, useContext } from "react"
+import TextField from "@mui/material/TextField"
+import Stack from "@mui/material/Stack"
+import DateTimePicker from "@mui/lab/DateTimePicker"
+import MenuItem from "@mui/material/MenuItem"
+import FormCard from "../UI/FormCard"
+import axios from "axios"
+import { NotificationCtx } from "../../store/notification-ctx"
 
 const AddActivity = () => {
   const [gameList, setGameList] = useState([])
   const [playerList, setPlayerList] = useState([])
 
-  const [game, setGame] = useState('')
-  const [player, setPlayer] = useState('')
+  const [game, setGame] = useState("")
+  const [player, setPlayer] = useState("")
 
   const [dateTime, setDateTime] = useState(Date.now())
   const alert = useContext(NotificationCtx)
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/games').then((res) => {
+    axios.get("http://localhost:4001/api/games").then((res) => {
       setGameList(res.data)
     })
-    axios.get('http://localhost:3000/api/players').then((res) => {
+    axios.get("http://localhost:4001/api/players").then((res) => {
       setPlayerList(res.data)
     })
   }, [])
@@ -34,22 +34,22 @@ const AddActivity = () => {
       dateTime: dateTime,
     }
     axios
-      .post('http://localhost:3000/api/schedules', formData)
+      .post("http://localhost:4001/api/schedules", formData)
       .then((res) => {
-        alert.notify('success', "The activity's been added successfully")
+        alert.notify("success", "The activity's been added successfully")
       })
       .catch((e) => {
-        alert.notify('error', e.response.data.error)
+        alert.notify("error", e.response.data.error)
       })
   }
   return (
-    <FormCard title='Add Activity' onSubmit={submitForm}>
+    <FormCard title="Add Activity" onSubmit={submitForm}>
       <Stack spacing={3}>
         <TextField
           fullWidth
-          id='select-player'
+          id="select-player"
           select
-          label='Player'
+          label="Player"
           value={player}
           onChange={(e) => setPlayer(e.target.value)}
         >
@@ -61,9 +61,9 @@ const AddActivity = () => {
         </TextField>
         <TextField
           fullWidth
-          id='select-game'
+          id="select-game"
           select
-          label='Game'
+          label="Game"
           value={game}
           onChange={(e) => setGame(e.target.value)}
         >
@@ -74,11 +74,11 @@ const AddActivity = () => {
           ))}
         </TextField>
         <DateTimePicker
-          label='Date&Time picker'
+          label="Date&Time picker"
           value={dateTime}
           ampm={false}
           ampmInClock={false}
-          views={['day', 'hours', 'minutes']}
+          views={["day", "hours", "minutes"]}
           minutesStep={5}
           onChange={(newValue) => setDateTime(newValue)}
           renderInput={(params) => <TextField {...params} />}
