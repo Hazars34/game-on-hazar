@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./gameon.db"
+  provider = "postgres"
+  url      = "postgres://ejelpbjqejwocj:6fa6c8801878c265253b83909fbcb622b73305cdf9a088b24caa8362e867494e@ec2-52-215-225-178.eu-west-1.compute.amazonaws.com:5432/d3omsb3vjl07h"
 }
 
 model Player {
