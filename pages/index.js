@@ -15,7 +15,7 @@ const Schedule = () => {
   }, [])
 
   const handleDelete = (id) => {
-    axios.delete(`${process.env.URL}/api/schedules${id}`).then((res) => {
+    axios.delete(`${process.env.URL}/api/schedules/${id}`).then((res) => {
       if (res.status === 204) {
         setSchedules(schedules.filter((schedule) => schedule.id !== id))
         alert.notify("success", "The activity is deleted")
@@ -26,14 +26,14 @@ const Schedule = () => {
   }
   const columns = [
     {
-      field: "col1",
+      field: "datetime",
       headerName: "Date & Time",
       type: "dateTime",
       valueGetter: ({ value }) => value && new Date(value),
       flex: 1,
     },
-    { field: "col2", headerName: "Player", flex: 0.7 },
-    { field: "col3", headerName: "Game", flex: 0.7 },
+    { field: "player", headerName: "Player", flex: 0.7 },
+    { field: "game", headerName: "Game", flex: 0.7 },
     {
       field: "actions",
       headerName: "Actions",
@@ -51,9 +51,9 @@ const Schedule = () => {
   const rows = schedules.map((schedule) => {
     return {
       id: schedule.id,
-      col1: schedule.dateTime,
-      col2: schedule.player.username,
-      col3: schedule.game.title,
+      datetime: schedule.dateTime,
+      player: schedule.player.username,
+      game: schedule.game.title,
     }
   })
 
